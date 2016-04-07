@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+      }
+      #location {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="location">
+    </div>    
+    <script>
+      function success(position) {
+        var s = document.querySelector('#location');
+        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var locOptions = {
+          zoom: 15,
+          center: latlng
+        };
+        var map = new google.maps.Map(document.getElementById("location"), locOptions);
+        var marker = new google.maps.Marker({
+          position: latlng, 
+          map: map
+        }
+                                           );
+      }
+      function error(msg) {
+        var s = document.querySelector('#location');
+      }
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+      }
+      else {
+        error('this is no longer supported');
+      }
+    </script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js">
+    </script>
+  </body>
+</html>
